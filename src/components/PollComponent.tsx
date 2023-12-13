@@ -9,9 +9,6 @@ const PollComponent: React.FC = () => {
   let leftPercentageNum = (left / total) * 100;
   let rightPercentageNum = (right / total) * 100;
 
-  let leftPercentageStr = leftPercentageNum.toFixed(1) + "%";
-  let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
-
   const getPercentage = () => {
     total = left + right;
     leftPercentageNum = (left / total) * 100;
@@ -34,10 +31,10 @@ const PollComponent: React.FC = () => {
     <>
       <div className={styles.box}>
         <div ref={leftDivRef} className={styles.left}>
-          {leftPercentageStr}
+          {leftPercentageNum.toFixed(1)}%
         </div>
         <div ref={rightDivRef} className={styles.right}>
-          {rightPercentageStr}
+          {rightPercentageNum.toFixed(1)}%
         </div>
       </div>
       <div className={styles.buttons}>
