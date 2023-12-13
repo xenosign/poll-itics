@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./PollComponent.module.css";
 
 const PollComponent: React.FC = () => {
-  const [left, setLeft] = useState<number>(2);
-  const [right, setRight] = useState<number>(1);
+  const [left, setLeft] = useState<number>(0);
+  const [right, setRight] = useState<number>(0);
 
   let total = left + right;
   let leftPercentageNum = (left / total) * 100;
@@ -11,6 +11,7 @@ const PollComponent: React.FC = () => {
 
   const getPercentage = () => {
     total = left + right;
+
     leftPercentageNum = (left / total) * 100;
     rightPercentageNum = (right / total) * 100;
   };
@@ -27,14 +28,26 @@ const PollComponent: React.FC = () => {
     }
   }, [left, right]);
 
+  if (total === 0) {
+    return (
+      <>
+        <div className={styles.box}>첫 투표가 필요합니다</div>
+        <div className={styles.buttons}>
+          <button onClick={() => setLeft((cur) => cur + 1)}>left up</button>
+          <button onClick={() => setRight((cur) => cur + 1)}>right up</button>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <div className={styles.box}>
         <div ref={leftDivRef} className={styles.left}>
-          {leftPercentageNum.toFixed(1)}%
+          {leftPercentageNum === 0 ? "" : leftPercentageNum.toFixed(1) + "%"}
         </div>
         <div ref={rightDivRef} className={styles.right}>
-          {rightPercentageNum.toFixed(1)}%
+          {rightPercentageNum === 0 ? "" : rightPercentageNum.toFixed(1) + "%"}
         </div>
       </div>
       <div className={styles.buttons}>

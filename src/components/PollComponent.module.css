@@ -3,8 +3,8 @@
   height: 10vh;
   background-color: #ccc;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  align-items: center;  
 }
 
 .box div {
@@ -22,7 +22,6 @@
 
 .right {
   background-color: #FF7F00;
-  flex-grow: 1;
 }
 
 .buttons {
