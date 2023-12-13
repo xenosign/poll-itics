@@ -44,10 +44,14 @@ const PollComponent: React.FC = () => {
     <>
       <div className={styles.box}>
         <div ref={leftDivRef} className={styles.left}>
-          {leftPercentageNum === 0 ? "" : leftPercentageNum.toFixed(1) + "%"}
+          {leftPercentageNum === 0
+            ? ""
+            : leftPercentageNum.toFixed(1) + "%" + " (" + left + ")"}
         </div>
         <div ref={rightDivRef} className={styles.right}>
-          {rightPercentageNum === 0 ? "" : rightPercentageNum.toFixed(1) + "%"}
+          {rightPercentageNum === 0
+            ? ""
+            : rightPercentageNum.toFixed(1) + "%" + " (" + right + ")"}
         </div>
       </div>
       <div className={styles.buttons}>
