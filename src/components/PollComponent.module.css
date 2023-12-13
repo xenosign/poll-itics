@@ -1,0 +1,30 @@
+.box {
+  width: 70vw;
+  height: 10vh;
+  background-color: #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.box div {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+}
+
+.left {
+  background-color: #007BFF;
+}
+
+.right {
+  background-color: #FF7F00;
+  flex-grow: 1;
+}
+
+.buttons {
+  margin-top: 20px;
+}
