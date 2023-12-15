@@ -5,9 +5,20 @@ const PollComponent: React.FC = () => {
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
 
+  const leftDivRef = useRef<HTMLDivElement>(null);
+  const rightDivRef = useRef<HTMLDivElement>(null);
+  const centerDivRef = useRef<HTMLDivElement>(null);
+  const leftDivTextBoxRef = useRef<HTMLDivElement>(null);
+  const rightDivTextBoxRef = useRef<HTMLDivElement>(null);
+
   let total = left + right;
   let leftPercentageNum = (left / total) * 100;
   let rightPercentageNum = (right / total) * 100;
+  let leftPercentageStr = leftPercentageNum.toFixed(1) + "%";
+  let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
+
+  const handleVoteLeft = () => setLeft((cur) => cur + 1);
+  const handleVoteRight = () => setRight((cur) => cur + 1);
 
   const getPercentage = () => {
     total = left + right;
@@ -16,47 +27,57 @@ const PollComponent: React.FC = () => {
     rightPercentageNum = (right / total) * 100;
   };
 
-  const leftDivRef = useRef<HTMLDivElement>(null);
-  const rightDivRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     getPercentage();
 
-    if (leftDivRef.current && rightDivRef.current) {
+    if (
+      total !== 0 &&
+      leftDivRef.current &&
+      rightDivRef.current &&
+      centerDivRef.current &&
+      leftDivTextBoxRef.current &&
+      rightDivTextBoxRef.current
+    ) {
       leftDivRef.current.style.width = `${leftPercentageNum}%`;
       rightDivRef.current.style.width = `${rightPercentageNum}%`;
+
+      centerDivRef.current.style.width = "0%";
+      centerDivRef.current.innerText = "";
+
+      left !== 0
+        ? (leftDivTextBoxRef.current.style.opacity = "100%")
+        : (leftDivTextBoxRef.current.style.opacity = "0%");
+
+      right !== 0
+        ? (rightDivTextBoxRef.current.style.opacity = "100%")
+        : (rightDivTextBoxRef.current.style.opacity = "0%");
     }
   }, [left, right]);
-
-  if (total === 0) {
-    return (
-      <>
-        <div className={styles.box}>첫 투표가 필요합니다</div>
-        <div className={styles.buttons}>
-          <button onClick={() => setLeft((cur) => cur + 1)}>left up</button>
-          <button onClick={() => setRight((cur) => cur + 1)}>right up</button>
-        </div>
-      </>
-    );
-  }
 
   return (
     <>
       <div className={styles.box}>
         <div ref={leftDivRef} className={styles.left}>
-          {leftPercentageNum === 0
-            ? ""
-            : leftPercentageNum.toFixed(1) + "%" + " (" + left + ")"}
+          <div ref={leftDivTextBoxRef} className={styles.votePercent}>
+            {leftPercentageNum === 0
+              ? ""
+              : leftPercentageStr + " (" + left + ")"}
+          </div>
+        </div>
+        <div ref={centerDivRef} className={styles.textBox}>
+          첫 투표가 필요합니다
         </div>
         <div ref={rightDivRef} className={styles.right}>
-          {rightPercentageNum === 0
-            ? ""
-            : rightPercentageNum.toFixed(1) + "%" + " (" + right + ")"}
+          <div ref={rightDivTextBoxRef} className={styles.votePercent}>
+            {rightPercentageNum === 0
+              ? ""
+              : rightPercentageStr + " (" + right + ")"}
+          </div>
         </div>
       </div>
       <div className={styles.buttons}>
-        <button onClick={() => setLeft((cur) => cur + 1)}>left up</button>
-        <button onClick={() => setRight((cur) => cur + 1)}>right up</button>
+        <button onClick={handleVoteLeft}>left up</button>
+        <button onClick={handleVoteRight}>right up</button>
       </div>
     </>
   );
