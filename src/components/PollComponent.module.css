@@ -1,0 +1,40 @@
+.box {
+  width: 70vw;
+  height: 10vh;
+  background-color: #ccc;
+  display: flex;  
+  justify-content: space-between;
+  align-items: center;  
+}
+
+.box div {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  transition: width 1s, opacity 1s;  
+}
+
+.left {
+  width: 2%;
+  background-color: #007BFF;
+}
+
+.right {
+  width: 2%;
+  background-color: #FF7F00;
+}
+
+.votePercent {  
+  opacity: 0%;  
+}
+
+.box .textBox {
+  color: black;
+}
+
+.buttons {
+  margin-top: 20px;
+}
