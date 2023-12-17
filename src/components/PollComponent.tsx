@@ -44,13 +44,9 @@ const PollComponent: React.FC = () => {
       centerDivRef.current.style.width = "0%";
       centerDivRef.current.innerText = "";
 
-      left !== 0
-        ? (leftDivTextBoxRef.current.style.opacity = "100%")
-        : (leftDivTextBoxRef.current.style.opacity = "0%");
+      left !== 0 && (leftDivTextBoxRef.current.style.opacity = "100%");
 
-      right !== 0
-        ? (rightDivTextBoxRef.current.style.opacity = "100%")
-        : (rightDivTextBoxRef.current.style.opacity = "0%");
+      right !== 0 && (rightDivTextBoxRef.current.style.opacity = "100%");
     }
   }, [left, right]);
 
@@ -59,9 +55,7 @@ const PollComponent: React.FC = () => {
       <div className={styles.box}>
         <div ref={leftDivRef} className={styles.left}>
           <div ref={leftDivTextBoxRef} className={styles.votePercent}>
-            {leftPercentageNum === 0
-              ? ""
-              : leftPercentageStr + " (" + left + ")"}
+            {leftPercentageNum !== 0 && `${leftPercentageStr} (${left})`}
           </div>
         </div>
         <div ref={centerDivRef} className={styles.textBox}>
@@ -69,9 +63,7 @@ const PollComponent: React.FC = () => {
         </div>
         <div ref={rightDivRef} className={styles.right}>
           <div ref={rightDivTextBoxRef} className={styles.votePercent}>
-            {rightPercentageNum === 0
-              ? ""
-              : rightPercentageStr + " (" + right + ")"}
+            {rightPercentageNum !== 0 && `${rightPercentageStr} (${right})`}
           </div>
         </div>
       </div>

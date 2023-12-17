@@ -12,12 +12,13 @@
   height: 100%;
   align-items: center;
   justify-content: center;
+  text-align: center;
   color: white;
   font-weight: 700;
   transition: width 1s, opacity 1s;  
 }
 
-.left {
+.left {  
   width: 2%;
   background-color: #007BFF;
 }
