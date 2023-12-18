@@ -17,8 +17,8 @@ const PollComponent: React.FC = () => {
   let leftPercentageStr = leftPercentageNum.toFixed(1) + "%";
   let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
 
-  const handleVoteLeft = () => setLeft((cur) => cur + 1);
-  const handleVoteRight = () => setRight((cur) => cur + 1);
+  const handleVoteLeft = () => setLeft((cur: number) => cur + 1);
+  const handleVoteRight = () => setRight((cur: number) => cur + 1);
 
   const getPercentage = () => {
     total = left + right;
