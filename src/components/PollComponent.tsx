@@ -3,9 +3,7 @@ import styles from "./PollComponent.module.css";
 import { Link, useParams } from "react-router-dom";
 
 const PollComponent: React.FC = () => {
-  const params = useParams();
-
-  console.log(params);
+  const { id } = useParams();
 
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
@@ -22,8 +20,29 @@ const PollComponent: React.FC = () => {
   let leftPercentageStr = leftPercentageNum.toFixed(1) + "%";
   let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
 
-  const handleVoteLeft = () => setLeft((cur: number) => cur + 1);
-  const handleVoteRight = () => setRight((cur: number) => cur + 1);
+  const handleVoteLeft = async () => {
+    setLeft((cur: number) => cur + 1);
+    await fetch(`http://localhost:3001/${id}/left`, {
+      method: "POST",
+    });
+  };
+  const handleVoteRight = async () => {
+    setRight((cur: number) => cur + 1);
+    await fetch(`http://localhost:3001/${id}/right`, {
+      method: "POST",
+    });
+  };
+
+  const getPollsInfo = async () => {
+    const fetchResult = await fetch(`http://localhost:3001/${id}`);
+    let pollsInfo: any;
+    if (fetchResult.status === 200) pollsInfo = await fetchResult.json();
+
+    if (!pollsInfo) return;
+
+    setLeft(pollsInfo.left);
+    setRight(pollsInfo.right);
+  };
 
   const getPercentage = () => {
     total = left + right;
@@ -31,6 +50,10 @@ const PollComponent: React.FC = () => {
     leftPercentageNum = (left / total) * 100;
     rightPercentageNum = (right / total) * 100;
   };
+
+  useEffect(() => {
+    getPollsInfo();
+  }, []);
 
   useEffect(() => {
     getPercentage();

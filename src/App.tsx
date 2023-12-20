@@ -10,8 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}>
           <Route path="" element={<Landing />} />
-          <Route path="1" element={<PollComponent />} />
-          <Route path="2" element={<PollComponent />} />
+          <Route path=":id" element={<PollComponent />} />
         </Route>
       </Routes>
     </BrowserRouter>
