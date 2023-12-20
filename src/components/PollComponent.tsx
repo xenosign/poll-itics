@@ -3,6 +3,10 @@ import styles from "./PollComponent.module.css";
 import { Link, useParams } from "react-router-dom";
 
 const PollComponent: React.FC = () => {
+  const params = useParams();
+
+  console.log(params);
+
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
 
