@@ -1,3 +1,10 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .box {
   width: 70vw;
   height: 10vh;

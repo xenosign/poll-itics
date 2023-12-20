@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./PollComponent.module.css";
+import { Link, useParams } from "react-router-dom";
 
 const PollComponent: React.FC = () => {
   const [left, setLeft] = useState<number>(0);
@@ -51,7 +52,7 @@ const PollComponent: React.FC = () => {
   }, [left, right]);
 
   return (
-    <>
+    <div className={styles.wrap}>
       <div className={styles.box}>
         <div ref={leftDivRef} className={styles.left}>
           <div ref={leftDivTextBoxRef} className={styles.votePercent}>
@@ -71,7 +72,9 @@ const PollComponent: React.FC = () => {
         <button onClick={handleVoteLeft}>left up</button>
         <button onClick={handleVoteRight}>right up</button>
       </div>
-    </>
+      <br />
+      <Link to="/">홈으로</Link>
+    </div>
   );
 };
 
