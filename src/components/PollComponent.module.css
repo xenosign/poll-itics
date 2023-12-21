@@ -9,6 +9,8 @@
   width: 70vw;
   height: 10vh;
   background-color: #ccc;
+  border-radius: 16px;
+  overflow: hidden;
   display: flex;  
   justify-content: space-between;
   align-items: center;  

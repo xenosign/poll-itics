@@ -7,6 +7,7 @@ const PollComponent: React.FC = () => {
 
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
+  const [subject, setSubject] = useState<string>("");
 
   const leftDivRef = useRef<HTMLDivElement>(null);
   const rightDivRef = useRef<HTMLDivElement>(null);
@@ -21,27 +22,37 @@ const PollComponent: React.FC = () => {
   let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
 
   const handleVoteLeft = async () => {
-    setLeft((cur: number) => cur + 1);
-    await fetch(`http://localhost:3001/${id}/left`, {
+    const fetchResult: any = await fetch(`http://localhost:3001/${id}/left`, {
       method: "POST",
     });
+
+    if (fetchResult.status !== 200)
+      return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
+
+    setLeft((cur: number) => cur + 1);
   };
   const handleVoteRight = async () => {
-    setRight((cur: number) => cur + 1);
-    await fetch(`http://localhost:3001/${id}/right`, {
+    const fetchResult: any = await fetch(`http://localhost:3001/${id}/right`, {
       method: "POST",
     });
+
+    if (fetchResult.status !== 200)
+      return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
+
+    setRight((cur: number) => cur + 1);
   };
 
   const getPollsInfo = async () => {
     const fetchResult = await fetch(`http://localhost:3001/${id}`);
     let pollsInfo: any;
     if (fetchResult.status === 200) pollsInfo = await fetchResult.json();
+    console.log(pollsInfo);
 
-    if (!pollsInfo) return;
+    if (!pollsInfo) return alert("데이터 통신 이상");
 
     setLeft(pollsInfo.left);
     setRight(pollsInfo.right);
+    setSubject(pollsInfo.subject);
   };
 
   const getPercentage = () => {
@@ -80,6 +91,7 @@ const PollComponent: React.FC = () => {
 
   return (
     <div className={styles.wrap}>
+      <h2>{subject}</h2>
       <div className={styles.box}>
         <div ref={leftDivRef} className={styles.left}>
           <div ref={leftDivTextBoxRef} className={styles.votePercent}>
