@@ -9,6 +9,7 @@ const PollComponent: React.FC = () => {
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
   const [subject, setSubject] = useState<string>("");
+  const [render, setRender] = useState<boolean>(true);
 
   const leftDivRef = useRef<HTMLDivElement>(null);
   const rightDivRef = useRef<HTMLDivElement>(null);
@@ -28,7 +29,7 @@ const PollComponent: React.FC = () => {
     if (res.status !== 200)
       return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
 
-    setLeft((cur: number) => cur + 1);
+    setRender((cur) => !cur);
   };
   const handleVoteRight = async () => {
     const res: any = await axios.post(`/${id}/right`);
@@ -36,7 +37,7 @@ const PollComponent: React.FC = () => {
     if (res.status !== 200)
       return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
 
-    setRight((cur: number) => cur + 1);
+    setRender((cur) => !cur);
   };
 
   const getPollsInfo = async () => {
@@ -61,7 +62,7 @@ const PollComponent: React.FC = () => {
 
   useEffect(() => {
     getPollsInfo();
-  }, []);
+  }, [render]);
 
   useEffect(() => {
     getPercentage();
