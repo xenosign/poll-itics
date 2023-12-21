@@ -23,16 +23,8 @@ const PollComponent: React.FC = () => {
   let leftPercentageStr = leftPercentageNum.toFixed(1) + "%";
   let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
 
-  const handleVoteLeft = async () => {
-    const res: any = await axios.post(`/${id}/left`);
-
-    if (res.status !== 200)
-      return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
-
-    setRender((cur) => !cur);
-  };
-  const handleVoteRight = async () => {
-    const res: any = await axios.post(`/${id}/right`);
+  const handleVote = async (direction: string) => {
+    const res: any = await axios.post(`/${id}/${direction}`);
 
     if (res.status !== 200)
       return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
@@ -106,8 +98,8 @@ const PollComponent: React.FC = () => {
         </div>
       </div>
       <div className={styles.buttons}>
-        <button onClick={handleVoteLeft}>left up</button>
-        <button onClick={handleVoteRight}>right up</button>
+        <button onClick={() => handleVote("left")}>left up</button>
+        <button onClick={() => handleVote("right")}>right up</button>
       </div>
       <br />
       <Link to="/">홈으로</Link>
