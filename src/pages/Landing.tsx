@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 export default function Landing() {
   return (
     <>
-      <Link to="1">
+      <Link to="/vote/1">
         <h1>1</h1>
       </Link>
-      <Link to="2">
+      <Link to="/vote/2">
         <h1>2</h1>
       </Link>
     </>
