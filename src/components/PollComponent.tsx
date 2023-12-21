@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./PollComponent.module.css";
 import { Link, useParams } from "react-router-dom";
+import axios from "../lib/axios";
 
 const PollComponent: React.FC = () => {
   const { id } = useParams();
@@ -22,21 +23,17 @@ const PollComponent: React.FC = () => {
   let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
 
   const handleVoteLeft = async () => {
-    const fetchResult: any = await fetch(`http://localhost:3001/${id}/left`, {
-      method: "POST",
-    });
+    const res: any = await axios.post(`/${id}/left`);
 
-    if (fetchResult.status !== 200)
+    if (res.status !== 200)
       return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
 
     setLeft((cur: number) => cur + 1);
   };
   const handleVoteRight = async () => {
-    const fetchResult: any = await fetch(`http://localhost:3001/${id}/right`, {
-      method: "POST",
-    });
+    const res: any = await axios.post(`/${id}/right`);
 
-    if (fetchResult.status !== 200)
+    if (res.status !== 200)
       return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
 
     setRight((cur: number) => cur + 1);
