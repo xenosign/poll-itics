@@ -1,7 +1,16 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .box {
   width: 70vw;
   height: 10vh;
   background-color: #ccc;
+  border-radius: 16px;
+  overflow: hidden;
   display: flex;  
   justify-content: space-between;
   align-items: center;  

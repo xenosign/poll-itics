@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./PollComponent.module.css";
+import { Link, useParams } from "react-router-dom";
+import axios from "../lib/axios";
 
 const PollComponent: React.FC = () => {
+  const { id } = useParams();
+
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
+  const [subject, setSubject] = useState<string>("");
+  const [render, setRender] = useState<boolean>(true);
 
   const leftDivRef = useRef<HTMLDivElement>(null);
   const rightDivRef = useRef<HTMLDivElement>(null);
@@ -17,8 +23,35 @@ const PollComponent: React.FC = () => {
   let leftPercentageStr = leftPercentageNum.toFixed(1) + "%";
   let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
 
-  const handleVoteLeft = () => setLeft((cur: number) => cur + 1);
-  const handleVoteRight = () => setRight((cur: number) => cur + 1);
+  const handleVoteLeft = async () => {
+    const res: any = await axios.post(`/${id}/left`);
+
+    if (res.status !== 200)
+      return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
+
+    setRender((cur) => !cur);
+  };
+  const handleVoteRight = async () => {
+    const res: any = await axios.post(`/${id}/right`);
+
+    if (res.status !== 200)
+      return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
+
+    setRender((cur) => !cur);
+  };
+
+  const getPollsInfo = async () => {
+    const fetchResult = await fetch(`http://localhost:3001/${id}`);
+    let pollsInfo: any;
+    if (fetchResult.status === 200) pollsInfo = await fetchResult.json();
+    console.log(pollsInfo);
+
+    if (!pollsInfo) return alert("데이터 통신 이상");
+
+    setLeft(pollsInfo.left);
+    setRight(pollsInfo.right);
+    setSubject(pollsInfo.subject);
+  };
 
   const getPercentage = () => {
     total = left + right;
@@ -26,6 +59,10 @@ const PollComponent: React.FC = () => {
     leftPercentageNum = (left / total) * 100;
     rightPercentageNum = (right / total) * 100;
   };
+
+  useEffect(() => {
+    getPollsInfo();
+  }, [render]);
 
   useEffect(() => {
     getPercentage();
@@ -51,7 +88,8 @@ const PollComponent: React.FC = () => {
   }, [left, right]);
 
   return (
-    <>
+    <div className={styles.wrap}>
+      <h2>{subject}</h2>
       <div className={styles.box}>
         <div ref={leftDivRef} className={styles.left}>
           <div ref={leftDivTextBoxRef} className={styles.votePercent}>
@@ -71,7 +109,9 @@ const PollComponent: React.FC = () => {
         <button onClick={handleVoteLeft}>left up</button>
         <button onClick={handleVoteRight}>right up</button>
       </div>
-    </>
+      <br />
+      <Link to="/">홈으로</Link>
+    </div>
   );
 };
 
