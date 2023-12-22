@@ -32,7 +32,7 @@
   }
 
   &:hover {
-    background: #cfecf2;
+    background: rgb(156, 228, 194);
     transform: translateY(0.25em);
   }
 }
