@@ -32,17 +32,16 @@ const PollComponent: React.FC = () => {
     setRender((cur) => !cur);
   };
 
-  const getPollsInfo = async () => {
-    const fetchResult = await fetch(`http://localhost:3001/${id}`);
-    let pollsInfo: any;
-    if (fetchResult.status === 200) pollsInfo = await fetchResult.json();
-    console.log(pollsInfo);
+  const getPollInfo = async () => {
+    const res = await axios.get(`/${id}`);
+    let pollInfo: any;
+    if (res.status === 200) pollInfo = await res.data;
 
-    if (!pollsInfo) return alert("데이터 통신 이상");
+    if (!pollInfo) return alert("데이터 통신 이상");
 
-    setLeft(pollsInfo.left);
-    setRight(pollsInfo.right);
-    setSubject(pollsInfo.subject);
+    setLeft(pollInfo.left);
+    setRight(pollInfo.right);
+    setSubject(pollInfo.subject);
   };
 
   const getPercentage = () => {
@@ -53,7 +52,7 @@ const PollComponent: React.FC = () => {
   };
 
   useEffect(() => {
-    getPollsInfo();
+    getPollInfo();
   }, [render]);
 
   useEffect(() => {
@@ -83,7 +82,7 @@ const PollComponent: React.FC = () => {
     <div className={styles.wrap}>
       <h2>{subject}</h2>
       <div className={styles.box}>
-        <div ref={leftDivRef} className={styles.left}>
+        <div ref={leftDivRef} className={styles.leftBox}>
           <div ref={leftDivTextBoxRef} className={styles.votePercent}>
             {leftPercentageNum !== 0 && `${leftPercentageStr} (${left})`}
           </div>
@@ -91,18 +90,35 @@ const PollComponent: React.FC = () => {
         <div ref={centerDivRef} className={styles.textBox}>
           첫 투표가 필요합니다
         </div>
-        <div ref={rightDivRef} className={styles.right}>
+        <div ref={rightDivRef} className={styles.rightBox}>
           <div ref={rightDivTextBoxRef} className={styles.votePercent}>
             {rightPercentageNum !== 0 && `${rightPercentageStr} (${right})`}
           </div>
         </div>
       </div>
       <div className={styles.buttons}>
-        <button onClick={() => handleVote("left")}>left up</button>
-        <button onClick={() => handleVote("right")}>right up</button>
+        <div>
+          <h1>👍</h1>
+          <button
+            className={styles.leftButton}
+            onClick={() => handleVote("left")}
+          >
+            vote
+          </button>
+        </div>
+        <div>
+          <h1 className={styles.rightThumb}>👍</h1>
+          <button
+            className={styles.rightButton}
+            onClick={() => handleVote("right")}
+          >
+            vote
+          </button>
+        </div>
       </div>
-      <br />
-      <Link to="/">홈으로</Link>
+      <Link to="/">
+        <button className={styles.homeButton}>목록으로</button>
+      </Link>
     </div>
   );
 };

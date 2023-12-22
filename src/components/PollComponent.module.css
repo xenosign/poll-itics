@@ -8,6 +8,7 @@
 .box {
   width: 70vw;
   height: 10vh;
+  margin: 6vh 0;
   background-color: #ccc;
   border-radius: 16px;
   overflow: hidden;
@@ -24,15 +25,16 @@
   text-align: center;
   color: white;
   font-weight: 700;
+  font-size: 24px;
   transition: width 1s, opacity 1s;  
 }
 
-.left {  
+.leftBox {  
   width: 2%;
   background-color: #007BFF;
 }
 
-.right {
+.rightBox {
   width: 2%;
   background-color: #FF7F00;
 }
@@ -46,5 +48,123 @@
 }
 
 .buttons {
-  margin-top: 20px;
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+}
+
+.buttons .leftButton {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  vertical-align: middle;
+  text-decoration: none;
+  line-height: 1.6em;
+  font-size: 1.2em;
+  padding: 0.7em 1.5em;
+  background-color: #7EDCFA;
+  border: 2px solid #3A82E0;
+  border-radius: 0.75em;
+  user-select: none;
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    right: 0;
+    background: #3A82E0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px #3A82E0;;
+    transform: translate3d(0, 0.5em, -1em);
+  }
+
+  &:hover {
+    background: #CFECF2;
+    transform: translateY(0.25em);
+  }
+}
+
+.buttons .rightButton {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  vertical-align: middle;
+  text-decoration: none;
+  line-height: 1.6em;
+  font-size: 1.2em;
+  padding: 0.7em 1.5em;
+  background-color: #fae243;
+  border: 2px solid #fa9f1a;
+  border-radius: 0.75em;
+  user-select: none;
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    right: 0;
+    background: #fa9f1a;
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px #fa9f1a;;
+    transform: translate3d(0, 0.5em, -1em);
+  }
+
+  &:hover {
+    background: #faf000;
+    transform: translateY(0.25em);
+  }
+}
+
+.buttons .rightThumb {
+  transform: scaleX(-1);
+}
+
+.homeButton {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  vertical-align: middle;
+  text-decoration: none;
+  line-height: 1.6em;
+  font-size: 1.2em;
+  padding: 0.7em 1.5em;
+  background-color: #c9c9c9;
+  border: 2px solid #999;
+  border-radius: 0.75em;
+  user-select: none;
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+  margin-top: 5em;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    right: 0;
+    background: #999;
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px #999;;
+    transform: translate3d(0, 0.5em, -1em);
+  }
+
+  &:hover {
+    background: #eee;
+    transform: translateY(0.25em);
+  }
 }

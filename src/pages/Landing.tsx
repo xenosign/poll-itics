@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "../lib/axios";
 
 export default function Landing() {
+  const [list, setList] = useState<any>([]);
+
+  const getPollsList = async () => {
+    const res = await axios.get(`/`);
+    if (res.status !== 200) return alert("데이터 통신 이상");
+
+    const pollList = await res.data;
+
+    setList(pollList);
+  };
+
+  useEffect(() => {
+    getPollsList();
+  }, []);
+
   return (
     <>
-      <Link to="/vote/1">
-        <h1>1</h1>
-      </Link>
-      <Link to="/vote/2">
-        <h1>2</h1>
-      </Link>
+      {list?.map((poll: any) => {
+        return (
+          <Link to={`/${poll.id}`}>
+            <h1>{poll.subject}</h1>
+          </Link>
+        );
+      })}
     </>
   );
 }

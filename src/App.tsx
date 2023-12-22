@@ -9,10 +9,18 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/vote" element={<Main />}>
+        <Route path="/" element={<Main />}>
           <Route path=":id" element={<PollComponent />} />
         </Route>
-        <Route path="*" element={<h1>404</h1>} />
+        <Route
+          path="*"
+          element={
+            <Link to="/">
+              <h1>404 Not Found</h1>
+              <h1>홈으로</h1>
+            </Link>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
