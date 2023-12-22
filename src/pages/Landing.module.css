@@ -1,3 +1,8 @@
+.subject {
+  font-size: 3em;
+  color: #444;
+}
+
 .listBox {
   display: flex;
   flex-direction: column;

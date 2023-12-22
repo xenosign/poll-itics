@@ -80,7 +80,7 @@ const PollComponent: React.FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <h1>{subject}</h1>
+      <h1 className={styles.subject}>{subject}</h1>
       <div className={styles.box}>
         <div ref={leftDivRef} className={styles.leftBox}>
           <div ref={leftDivTextBoxRef} className={styles.votePercent}>
