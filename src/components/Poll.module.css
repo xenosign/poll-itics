@@ -1,0 +1,38 @@
+.poll {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  vertical-align: middle;
+  text-decoration: none;
+  width: 50vw;
+  line-height: 1.6em;
+  font-size: 1.2em;
+  padding: 1em 0em;
+  font-size: 1.5em;
+  background-color: #a0e8af;
+  border: 2px solid #86baa1;
+  border-radius: 0.75em;
+  user-select: none;
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    right: 0;
+    background: #86baa1;
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px #86baa1;
+    transform: translate3d(0, 0.5em, -1em);
+  }
+
+  &:hover {
+    background: #cfecf2;
+    transform: translateY(0.25em);
+  }
+}

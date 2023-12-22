@@ -1,5 +1,13 @@
 @import-normalize; /* bring in normalize.css styles */
 
+@font-face {
+  font-family: "SBAggroB";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
   word-break: keep-all;
@@ -17,6 +25,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "SBAggroB";
 }
 
 a,
@@ -44,3 +53,6 @@ a:visited {
   flex: none;
 }
 
+button {
+  font-family: "SBAggroB";
+}

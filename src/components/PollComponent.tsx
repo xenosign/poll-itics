@@ -80,11 +80,11 @@ const PollComponent: React.FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <h2>{subject}</h2>
+      <h1>{subject}</h1>
       <div className={styles.box}>
         <div ref={leftDivRef} className={styles.leftBox}>
           <div ref={leftDivTextBoxRef} className={styles.votePercent}>
-            {leftPercentageNum !== 0 && `${leftPercentageStr} (${left})`}
+            {leftPercentageNum !== 0 && `${leftPercentageStr}`}
           </div>
         </div>
         <div ref={centerDivRef} className={styles.textBox}>
@@ -92,27 +92,25 @@ const PollComponent: React.FC = () => {
         </div>
         <div ref={rightDivRef} className={styles.rightBox}>
           <div ref={rightDivTextBoxRef} className={styles.votePercent}>
-            {rightPercentageNum !== 0 && `${rightPercentageStr} (${right})`}
+            {rightPercentageNum !== 0 && `${rightPercentageStr}`}
           </div>
         </div>
       </div>
       <div className={styles.buttons}>
         <div>
-          <h1>👍</h1>
           <button
             className={styles.leftButton}
             onClick={() => handleVote("left")}
           >
-            vote
+            <h1 className={styles.leftThumb}>👍</h1>
           </button>
         </div>
         <div>
-          <h1 className={styles.rightThumb}>👍</h1>
           <button
             className={styles.rightButton}
             onClick={() => handleVote("right")}
           >
-            vote
+            <h1 className={styles.rightThumb}>👍</h1>
           </button>
         </div>
       </div>

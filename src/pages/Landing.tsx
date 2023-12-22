@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "../lib/axios";
+import Poll from "../components/Poll";
+import styles from "./Landing.module.css";
 
 export default function Landing() {
   const [list, setList] = useState<any>([]);
@@ -19,14 +20,11 @@ export default function Landing() {
   }, []);
 
   return (
-    <>
+    <div className={styles.listBox}>
+      <h1>투표 목록</h1>
       {list?.map((poll: any) => {
-        return (
-          <Link to={`/${poll.id}`}>
-            <h1>{poll.subject}</h1>
-          </Link>
-        );
+        return <Poll key={poll.id} id={poll.id} subject={poll.subject} />;
       })}
-    </>
+    </div>
   );
 }

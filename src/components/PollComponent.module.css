@@ -12,9 +12,9 @@
   background-color: #ccc;
   border-radius: 16px;
   overflow: hidden;
-  display: flex;  
+  display: flex;
   justify-content: space-between;
-  align-items: center;  
+  align-items: center;
 }
 
 .box div {
@@ -23,24 +23,25 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: white;
+  color: #fff;
+  text-shadow: 2px 2px 2px rgb(71, 71, 71);
   font-weight: 700;
   font-size: 24px;
-  transition: width 1s, opacity 1s;  
+  transition: width 1s, opacity 1s;
 }
 
-.leftBox {  
+.leftBox {
   width: 2%;
-  background-color: #007BFF;
+  background-color: #007bff;
 }
 
 .rightBox {
   width: 2%;
-  background-color: #FF7F00;
+  background-color: #ff7f00;
 }
 
-.votePercent {  
-  opacity: 0%;  
+.votePercent {
+  opacity: 0%;
 }
 
 .box .textBox {
@@ -62,15 +63,15 @@
   line-height: 1.6em;
   font-size: 1.2em;
   padding: 0.7em 1.5em;
-  background-color: #7EDCFA;
-  border: 2px solid #3A82E0;
+  border: 2px solid #3a82e0;
   border-radius: 0.75em;
   user-select: none;
   transition: transform 0.15s ease-out;
   transform-style: preserve-3d;
+  text-shadow: 4px 4px 4px rgb(71, 71, 71);
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 100%;
@@ -78,14 +79,14 @@
     right: 0;
     left: 0;
     right: 0;
-    background: #3A82E0;
+    background: #3a82e0;
     border-radius: inherit;
-    box-shadow: 0 0 0 2px #3A82E0;;
+    box-shadow: 0 0 0 2px #3a82e0;
     transform: translate3d(0, 0.5em, -1em);
   }
 
   &:hover {
-    background: #CFECF2;
+    background: #a5f0ff;
     transform: translateY(0.25em);
   }
 }
@@ -99,15 +100,15 @@
   line-height: 1.6em;
   font-size: 1.2em;
   padding: 0.7em 1.5em;
-  background-color: #fae243;
   border: 2px solid #fa9f1a;
   border-radius: 0.75em;
   user-select: none;
   transition: transform 0.15s ease-out;
   transform-style: preserve-3d;
+  text-shadow: 4px 4px 4px rgb(71, 71, 71);
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 100%;
@@ -117,7 +118,7 @@
     right: 0;
     background: #fa9f1a;
     border-radius: inherit;
-    box-shadow: 0 0 0 2px #fa9f1a;;
+    box-shadow: 0 0 0 2px #fa9f1a;
     transform: translate3d(0, 0.5em, -1em);
   }
 
@@ -127,7 +128,12 @@
   }
 }
 
+.buttons .leftThumb {
+  font-size: 3em;
+}
+
 .buttons .rightThumb {
+  font-size: 3em;
   transform: scaleX(-1);
 }
 
@@ -149,7 +155,7 @@
   margin-top: 5em;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 100%;
@@ -159,7 +165,7 @@
     right: 0;
     background: #999;
     border-radius: inherit;
-    box-shadow: 0 0 0 2px #999;;
+    box-shadow: 0 0 0 2px #999;
     transform: translate3d(0, 0.5em, -1em);
   }
 
