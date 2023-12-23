@@ -8,6 +8,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "LeferiPoint-BlackA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
   word-break: keep-all;
@@ -25,7 +33,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "SBAggroB";
+  font-family: "LeferiPoint-BlackA";
 }
 
 a,
@@ -54,5 +62,5 @@ a:visited {
 }
 
 button {
-  font-family: "SBAggroB";
+  font-family: "LeferiPoint-BlackA";
 }
