@@ -7,12 +7,15 @@ export default function Landing() {
   const [list, setList] = useState<any>([]);
 
   const getPollsList = async () => {
-    const res = await axios.get(`/`);
-    if (res.status !== 200) return alert("데이터 통신 이상");
+    try {
+      const res = await axios.get(`/`);
+      if (res.status !== 200) return alert("데이터 통신 이상");
 
-    const pollList = await res.data;
-
-    setList(pollList);
+      const pollList = await res.data;
+      setList(pollList);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
