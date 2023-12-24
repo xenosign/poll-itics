@@ -3,6 +3,7 @@ import "./App.css";
 import PollComponent from "./components/PollComponent";
 import Main from "./pages/Main";
 import Landing from "./pages/Landing";
+import KakaoRedirectHandler from "./lib/KakaoRedirectHandler";
 
 function App() {
   return (
@@ -12,6 +13,10 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path=":id" element={<PollComponent />} />
         </Route>
+        <Route
+          path="/oauth/callback/kakao"
+          element={<KakaoRedirectHandler />}
+        />
         <Route
           path="*"
           element={

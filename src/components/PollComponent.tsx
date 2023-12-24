@@ -88,7 +88,7 @@ const PollComponent: React.FC = () => {
           </div>
         </div>
         <div ref={centerDivRef} className={styles.textBox}>
-          첫 투표가 필요합니다
+          첫 투표의 주인공, 바로 당신!
         </div>
         <div ref={rightDivRef} className={styles.rightBox}>
           <div ref={rightDivTextBoxRef} className={styles.votePercent}>
