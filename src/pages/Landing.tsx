@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "../lib/axios";
 import Poll from "../components/Poll";
 import styles from "./Landing.module.css";
+import { Link } from "react-router-dom";
 
 export default function Landing() {
   const [list, setList] = useState<any>([]);
@@ -22,7 +23,16 @@ export default function Landing() {
     getPollsList();
   }, []);
 
-  if (list.length === 0) return <h1>서버 접속 실패</h1>;
+  if (list.length === 0)
+    return (
+      <>
+        <h1>서버 접속 실패</h1>
+        <br />
+        <a href="/">
+          <h2>다시 접속하기</h2>
+        </a>
+      </>
+    );
 
   return (
     <div className={styles.listBox}>

@@ -16,6 +16,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "GongGothicMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
   word-break: keep-all;
@@ -28,12 +36,12 @@ html {
 
 body {
   margin: 0;
-  margin-top: 10vh;
+  padding-top: 15vh;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "LeferiPoint-BlackA";
+  font-family: "GongGothicMedium";
 }
 
 a,
@@ -62,5 +70,5 @@ a:visited {
 }
 
 button {
-  font-family: "LeferiPoint-BlackA";
+  font-family: "GongGothicMedium";
 }
