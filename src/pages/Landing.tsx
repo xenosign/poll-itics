@@ -36,7 +36,7 @@ export default function Landing() {
 
   return (
     <div className={styles.listBox}>
-      <h1 className={styles.subject}>투표 목록</h1>
+      <p className={styles.subject}>투표 목록</p>
       {list?.map((poll: any) => {
         return <Poll key={poll.id} id={poll.id} subject={poll.subject} />;
       })}

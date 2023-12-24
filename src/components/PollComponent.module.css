@@ -8,6 +8,7 @@
 .subject {
   font-size: 3em;
   color: #444;
+  margin-bottom: 0.3em;
 }
 
 .box {
@@ -29,8 +30,8 @@
   text-align: center;
   color: #fff;
   text-shadow: 2px 2px 2px rgb(71, 71, 71);
-  font-weight: 700;
-  font-size: 24px;
+  font-weight: 400;
+  font-size: 30px;
   transition: width 1s, opacity 1s;
 }
 
