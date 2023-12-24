@@ -19,6 +19,8 @@ export default function Landing() {
     getPollsList();
   }, []);
 
+  if (list.length === 0) return <h1>서버 접속 실패</h1>;
+
   return (
     <div className={styles.listBox}>
       <h1 className={styles.subject}>투표 목록</h1>
