@@ -45,6 +45,25 @@ const KakaoRedirectHandler = () => {
 
       console.log("userKaKaoInfo", userKaKaoInfo);
 
+      const userInfo = {
+        kakaoId: userKaKaoInfo.id,
+        email: userKaKaoInfo.kakao_account.email,
+        nickname: userKaKaoInfo.properties.nickname,
+      };
+
+      console.log("###", userInfo);
+
+      const registerResponse = await fetch(
+        "http://localhost:3001/user/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        }
+      );
+
       navigate("/");
     }
 
