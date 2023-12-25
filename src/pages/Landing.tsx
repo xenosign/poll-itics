@@ -15,7 +15,7 @@ export default function Landing() {
 
   const getPollsList = async () => {
     try {
-      const res = await axios.get(`/`);
+      const res = await axios.get(`/poll`);
       if (res.status !== 200) return alert("데이터 통신 이상");
 
       const pollList = await res.data;

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { login } from "../store/modules/user";
+import axios from "../lib/axios";
 
 const KakaoRedirectHandler = () => {
   const navigate = useNavigate();
@@ -24,8 +24,10 @@ const KakaoRedirectHandler = () => {
         }
       );
 
-      if (tokenResponse.status !== 200)
-        return alert("카카오 로그인 토큰 발행 실패");
+      if (tokenResponse.status !== 200) {
+        alert("카카오 로그인 토큰 발행 실패");
+        return navigate("/");
+      }
 
       const tokenData = await tokenResponse.json();
 
@@ -38,33 +40,43 @@ const KakaoRedirectHandler = () => {
         },
       });
 
-      if (userResponese.status !== 200)
-        return alert("카카오 유저 정보 받기 실패");
+      if (userResponese.status !== 200) {
+        alert("카카오 유저 정보 받기 실패");
+        return navigate("/");
+      }
 
-      const userKaKaoInfo = await userResponese.json();
+      const userKakaoInfo = await userResponese.json();
 
-      console.log("userKaKaoInfo", userKaKaoInfo);
+      console.log("userKaKaoInfo", userKakaoInfo);
 
       const userInfo = {
-        kakaoId: userKaKaoInfo.id,
-        email: userKaKaoInfo.kakao_account.email,
-        nickname: userKaKaoInfo.properties.nickname,
+        kakaoId: userKakaoInfo.id,
+        email: userKakaoInfo.kakao_account.email,
+        nickname: userKakaoInfo.properties.nickname,
       };
 
-      console.log("###", userInfo);
+      const loginResponse = await axios.post("/user/login", userInfo);
 
-      const registerResponse = await fetch(
-        "http://localhost:3001/user/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userInfo),
-        }
-      );
+      console.log("####", loginResponse);
 
-      navigate("/");
+      if (loginResponse.status === 400) {
+        alert("로그인 문제 발생");
+        return navigate("/");
+      }
+
+      if (loginResponse.status === 200) {
+        alert("로그인 완료");
+        return navigate("/");
+      }
+
+      const registerResponse = await axios.post("/user/register", userInfo);
+
+      if (registerResponse.status === 200) {
+        alert("회원 가입 완료");
+        return navigate("/");
+      }
+
+      alert("로그인 실패");
     }
 
     try {
