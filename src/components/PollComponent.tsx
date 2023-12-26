@@ -24,7 +24,9 @@ const PollComponent: React.FC = () => {
   let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
 
   const handleVote = async (direction: string) => {
-    const res: any = await axios.post(`/poll/${id}/${direction}`);
+    const res: any = await axios.post(`/poll/${id}/${direction}`, {
+      userId: 2,
+    });
 
     if (res.status !== 200)
       return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
