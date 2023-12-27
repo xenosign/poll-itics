@@ -8,7 +8,25 @@
 .subject {
   font-size: 3em;
   color: #333;
-  margin-bottom: 0.3em;
+  margin: 0.4em 0;
+}
+
+.voteSubject {
+  font-size: 2em;
+  color: #666;
+  margin-bottom: -0.2em;
+}
+
+.timeSubject {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: -0.5em;
+}
+
+.subSubject {
+  font-size: 1.5em;
+  color: #666;
+  margin-bottom: -1em;
 }
 
 .box {
@@ -60,6 +78,10 @@
   display: flex;
   width: 90%;
   justify-content: space-between;
+}
+
+.disabled {
+  pointer-events: none;
 }
 
 .buttons .leftButton {
