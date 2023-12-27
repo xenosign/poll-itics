@@ -15,12 +15,13 @@
 
 html {
   overflow-y: scroll;
+  overflow-x: hidden;
   background-color: #eee;
 }
 
 body {
   margin: 0;
-  padding-top: 15vh;
+  padding-top: 10vh;
   height: 100vh;
   display: flex;
   justify-content: center;

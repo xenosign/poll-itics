@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../lib/axios";
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from "../store/modules/user";
 
 const KakaoRedirectHandler = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const CODE = new URL(window.location.href).searchParams.get("code");
@@ -64,8 +67,13 @@ const KakaoRedirectHandler = () => {
         return navigate("/");
       }
 
+      userInfo.id = loginResponse.data;
+
       if (loginResponse.status === 200) {
         alert("로그인 완료");
+
+        dispatch(login(userInfo));
+
         return navigate("/");
       }
 

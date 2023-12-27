@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;  
+  align-items: center;
+  padding: 0 10vw;
+}
+
+.header h1 {
+  font-size: 1.7em;
+}
+
+.header p {
+  cursor: pointer;
+  color: #494949;
+}

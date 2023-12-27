@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./PollComponent.module.css";
 import { Link, useParams } from "react-router-dom";
 import axios from "../lib/axios";
+import { useSelector } from "react-redux";
 
 const PollComponent: React.FC = () => {
   const { id } = useParams();
@@ -22,6 +23,8 @@ const PollComponent: React.FC = () => {
   let rightPercentageNum = (right / total) * 100;
   let leftPercentageStr = leftPercentageNum.toFixed(1) + "%";
   let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
+
+  const userInfo = useSelector((state: any) => state.user);
 
   const handleVote = async (direction: string) => {
     const res: any = await axios.post(`/poll/${id}/${direction}`, {
@@ -51,6 +54,10 @@ const PollComponent: React.FC = () => {
 
     leftPercentageNum = (left / total) * 100;
     rightPercentageNum = (right / total) * 100;
+  };
+
+  const getUserInfo = () => {
+    const res = axios.get(`/user/${userInfo.id}`);
   };
 
   useEffect(() => {
