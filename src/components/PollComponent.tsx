@@ -24,8 +24,6 @@ const PollComponent: React.FC = () => {
   let leftPercentageStr = leftPercentageNum.toFixed(1) + "%";
   let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
 
-  const userInfo = useSelector((state: any) => state.user);
-
   const handleVote = async (direction: string) => {
     const res: any = await axios.post(`/poll/${id}/${direction}`, {
       userId: 2,
@@ -56,12 +54,19 @@ const PollComponent: React.FC = () => {
     rightPercentageNum = (right / total) * 100;
   };
 
-  const getUserInfo = () => {
-    const res = axios.get(`/user/${userInfo.id}`);
+  const userInfo = useSelector((state: any) => state.user);
+
+  const getUserInfo = async (id: string) => {
+    const res: any = await axios.post(`/user/get/`, {
+      userId: id,
+    });
+
+    console.log(res);
   };
 
   useEffect(() => {
     getPollInfo();
+    if (userInfo.isLogin) getUserInfo(userInfo.id);
   }, [render]);
 
   useEffect(() => {
