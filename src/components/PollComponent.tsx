@@ -3,6 +3,7 @@ import styles from "./PollComponent.module.css";
 import { Link, useParams } from "react-router-dom";
 import axios from "../lib/axios";
 import { useSelector } from "react-redux";
+import classNames from "classnames";
 
 const PollComponent: React.FC = () => {
   const { id } = useParams();
@@ -10,6 +11,7 @@ const PollComponent: React.FC = () => {
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
   const [subject, setSubject] = useState<string>("");
+  const [voted, setVoted] = useState<string>("");
   const [render, setRender] = useState<boolean>(true);
 
   const leftDivRef = useRef<HTMLDivElement>(null);
@@ -17,6 +19,8 @@ const PollComponent: React.FC = () => {
   const centerDivRef = useRef<HTMLDivElement>(null);
   const leftDivTextBoxRef = useRef<HTMLDivElement>(null);
   const rightDivTextBoxRef = useRef<HTMLDivElement>(null);
+  const leftButtonRef = useRef<HTMLButtonElement>(null);
+  const rightButtonRef = useRef<HTMLButtonElement>(null);
 
   let total = left + right;
   let leftPercentageNum = (left / total) * 100;
@@ -56,17 +60,23 @@ const PollComponent: React.FC = () => {
 
   const userInfo = useSelector((state: any) => state.user);
 
-  const getUserInfo = async (id: string) => {
+  const getVoteInfo = async (userId: string) => {
     const res: any = await axios.post(`/user/get/`, {
-      userId: id,
+      userId: userId,
     });
 
-    console.log(res);
+    const votedList = res.data.histories;
+
+    const isVoted = votedList[`${id}`];
+
+    if (isVoted === undefined || isVoted === "") return;
+
+    setVoted(isVoted);
   };
 
   useEffect(() => {
     getPollInfo();
-    if (userInfo.isLogin) getUserInfo(userInfo.id);
+    if (userInfo.isLogin) getVoteInfo(userInfo.id);
   }, [render]);
 
   useEffect(() => {
@@ -95,6 +105,7 @@ const PollComponent: React.FC = () => {
   return (
     <div className={styles.wrap}>
       <p className={styles.subject}>{subject}</p>
+      {<p></p>}
       <div className={styles.box}>
         <div ref={leftDivRef} className={styles.leftBox}>
           <div ref={leftDivTextBoxRef} className={styles.votePercent}>
@@ -113,16 +124,24 @@ const PollComponent: React.FC = () => {
       <div className={styles.buttons}>
         <div>
           <button
-            className={styles.leftButton}
+            className={classNames(
+              styles.leftButton,
+              voted === "L" && styles.leftVoted
+            )}
             onClick={() => handleVote("left")}
+            ref={leftButtonRef}
           >
             <h1 className={styles.leftThumb}>👍</h1>
           </button>
         </div>
         <div>
           <button
-            className={styles.rightButton}
+            className={classNames(
+              styles.rightButton,
+              voted === "R" && styles.rightVoted
+            )}
             onClick={() => handleVote("right")}
+            ref={rightButtonRef}
           >
             <h1 className={styles.rightThumb}>👍</h1>
           </button>

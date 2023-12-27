@@ -6,8 +6,8 @@ import Header from "../components/Header";
 export default function Main() {
   return (
     <>
+      <Header />
       <div className={styles.body}>
-        <Header />
         <Outlet />
       </div>
     </>

@@ -99,6 +99,11 @@
   }
 }
 
+.leftVoted {
+  background: #a5f0ff;
+  transform: translateY(0.25em);
+}
+
 .buttons .rightButton {
   position: relative;
   display: inline-block;
@@ -134,6 +139,11 @@
     background: #faf000;
     transform: translateY(0.25em);
   }
+}
+
+.rightVoted {
+  background: #faf000;
+  transform: translateY(0.25em);
 }
 
 .buttons .leftThumb {

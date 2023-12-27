@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../lib/axios";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/modules/user";
 
 const KakaoRedirectHandler = () => {
@@ -50,8 +50,6 @@ const KakaoRedirectHandler = () => {
 
       const userKakaoInfo = await userResponese.json();
 
-      console.log("userKaKaoInfo", userKakaoInfo);
-
       const userInfo = {
         kakaoId: userKakaoInfo.id,
         email: userKakaoInfo.kakao_account.email,
@@ -59,8 +57,6 @@ const KakaoRedirectHandler = () => {
       };
 
       const loginResponse = await axios.post("/user/login", userInfo);
-
-      console.log("####", loginResponse);
 
       if (loginResponse.status === 400) {
         alert("로그인 문제 발생");
