@@ -29,7 +29,7 @@ const KakaoRedirectHandler = () => {
 
       if (tokenResponse.status !== 200) {
         alert("카카오 로그인 토큰 발행 실패");
-        return navigate("/");
+        return navigate(-1);
       }
 
       const tokenData = await tokenResponse.json();
@@ -45,7 +45,7 @@ const KakaoRedirectHandler = () => {
 
       if (userResponese.status !== 200) {
         alert("카카오 유저 정보 받기 실패");
-        return navigate("/");
+        return navigate(-1);
       }
 
       const userKakaoInfo = await userResponese.json();
@@ -60,7 +60,7 @@ const KakaoRedirectHandler = () => {
 
       if (loginResponse.status === 400) {
         alert("로그인 문제 발생");
-        return navigate("/");
+        return navigate(-1);
       }
 
       userInfo.id = loginResponse.data;
@@ -70,14 +70,14 @@ const KakaoRedirectHandler = () => {
 
         dispatch(login(userInfo));
 
-        return navigate("/");
+        return navigate(-1);
       }
 
       const registerResponse = await axios.post("/user/register", userInfo);
 
       if (registerResponse.status === 200) {
         alert("회원 가입 완료");
-        return navigate("/");
+        return navigate(0);
       }
 
       alert("로그인 실패");
