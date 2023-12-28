@@ -4,10 +4,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "../lib/axios";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
+import { changeDateFormat } from "../lib/utils";
 
 const PollComponent: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const LIMIT_MINUTES = 5;
+  const LIMIT_DAYS = 1;
 
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
@@ -33,28 +37,31 @@ const PollComponent: React.FC = () => {
   const userInfo = useSelector((state: any) => state.user);
 
   const handleVote = async (direction: string) => {
-    const res: any = await axios.post(`/poll/${id}/${direction}`, {
-      userId: userInfo.id,
-    });
+    try {
+      const res: any = await axios.post(`/poll/${id}/${direction}`, {
+        userId: userInfo.id,
+      });
 
-    if (res.status !== 200)
-      return alert("데이터 통신 오류, 다시 시도해 주세요 :)");
-
-    setRender((cur) => !cur);
+      setRender((cur) => !cur);
+    } catch (err: any) {
+      alert(err.response?.data);
+    }
   };
 
   const handleRefresh = useCallback(() => navigate(0), []);
 
   const getPollInfo = async () => {
-    const res = await axios.get(`/poll/${id}`);
-    let pollInfo: any;
-    if (res.status === 200) pollInfo = await res.data;
+    try {
+      const res = await axios.get(`/poll/${id}`);
+      let pollInfo: any;
+      pollInfo = await res.data;
 
-    if (!pollInfo) return alert("데이터 통신 이상");
-
-    setLeft(pollInfo.left);
-    setRight(pollInfo.right);
-    setSubject(pollInfo.subject);
+      setLeft(pollInfo.left);
+      setRight(pollInfo.right);
+      setSubject(pollInfo.subject);
+    } catch (err: any) {
+      alert(err.response?.data);
+    }
   };
 
   const getPercentage = () => {
@@ -64,48 +71,31 @@ const PollComponent: React.FC = () => {
     rightPercentageNum = (right / total) * 100;
   };
 
-  const changeDateFormat = (date: Date) => {
-    return (
-      date.getFullYear() +
-      "-" +
-      (date.getMonth() + 1 < 9
-        ? "0" + (date.getMonth() + 1)
-        : date.getMonth() + 1) +
-      "-" +
-      (date.getDate() < 9 ? "0" + date.getDate() : date.getDate()) +
-      ", " +
-      (date.getHours() < 9 ? "0" + date.getHours() : date.getHours()) +
-      ":" +
-      (date.getMinutes() < 9 ? "0" + date.getMinutes() : date.getMinutes()) +
-      " 이후"
-    );
-  };
-
   const getVoteInfo = async (userId: string) => {
-    const res: any = await axios.post(`/user/get/`, {
-      userId: userId,
-    });
+    try {
+      const res: any = await axios.post(`/user/get/`, {
+        userId: userId,
+      });
 
-    const votedList = res.data.histories;
-    const voteInfo = votedList[`${id}`];
+      const votedList = res.data.histories;
+      const voteInfo = votedList[`${id}`];
 
-    if (voteInfo === undefined || voteInfo === "") return;
+      if (voteInfo === undefined || voteInfo === "") return;
 
-    const tmpArr = voteInfo.split("/");
-    const where = tmpArr[0];
-    const votedTime = tmpArr[1];
-    const limitedTime = new Date(votedTime);
-    const now = new Date();
+      const tmpArr = voteInfo.split("/");
+      const where = tmpArr[0];
+      const limitTimeStr = tmpArr[1];
+      const limitTime = new Date(limitTimeStr);
+      const now = new Date();
 
-    limitedTime.setSeconds(0);
-    limitedTime.setMinutes(limitedTime.getMinutes() + 1);
-    // limitedTime.setDate(limitedTime.getDate() + 1);
+      if (limitTime > now) {
+        setNotYet(changeDateFormat(limitTime));
+      }
 
-    if (limitedTime > now) {
-      setNotYet(changeDateFormat(limitedTime));
+      setVoteWhere(where);
+    } catch (err: any) {
+      alert(err.response?.data);
     }
-
-    setVoteWhere(where);
   };
 
   useEffect(() => {
@@ -156,7 +146,7 @@ const PollComponent: React.FC = () => {
             : voteWhere === "" || voteWhere === undefined
             ? "(투표 가능)"
             : notYet
-            ? `(변경 가능 시간 : ${notYet}, 새로고침 필요)`
+            ? `(변경 가능 시간 : ${notYet} / 변경 시, 새로고침을 하면 버튼이 활성화 됩니다)`
             : "(투표 변경 가능)"}
         </p>
       }

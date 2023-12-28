@@ -19,6 +19,10 @@ const Header: React.FC = () => {
     navigate(0);
   };
 
+  const handleSaveUrl = () => {
+    window.localStorage.setItem("url", window.location.href);
+  };
+
   return (
     <div className={styles.header}>
       <div>
@@ -28,7 +32,9 @@ const Header: React.FC = () => {
         {userInfo.isLogin ? (
           <p onClick={handleLogout}>카카오 로그아웃</p>
         ) : (
-          <Link to={KAKAO_AUTH_URL}>카카오 로그인</Link>
+          <Link onClick={handleSaveUrl} to={KAKAO_AUTH_URL}>
+            카카오 로그인
+          </Link>
         )}
       </div>
     </div>

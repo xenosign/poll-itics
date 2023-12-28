@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../lib/axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../store/modules/user";
 
 const KakaoRedirectHandler = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const url = window.localStorage.getItem("url");
+  const urlArr = url.split("/");
+  const pollId = urlArr[urlArr.length - 1];
 
   useEffect(() => {
     const CODE = new URL(window.location.href).searchParams.get("code");
@@ -29,7 +33,7 @@ const KakaoRedirectHandler = () => {
 
       if (tokenResponse.status !== 200) {
         alert("카카오 로그인 토큰 발행 실패");
-        return navigate(-1);
+        return navigate(`/${pollId}`);
       }
 
       const tokenData = await tokenResponse.json();
@@ -45,7 +49,7 @@ const KakaoRedirectHandler = () => {
 
       if (userResponese.status !== 200) {
         alert("카카오 유저 정보 받기 실패");
-        return navigate(-1);
+        return navigate(`/${pollId}`);
       }
 
       const userKakaoInfo = await userResponese.json();
@@ -60,7 +64,7 @@ const KakaoRedirectHandler = () => {
 
       if (loginResponse.status === 400) {
         alert("로그인 문제 발생");
-        return navigate(-1);
+        return navigate(`/${pollId}`);
       }
 
       userInfo.id = loginResponse.data;
@@ -70,17 +74,18 @@ const KakaoRedirectHandler = () => {
 
         dispatch(login(userInfo));
 
-        return navigate(-1);
+        return navigate(`/${pollId}`);
       }
 
       const registerResponse = await axios.post("/user/register", userInfo);
 
       if (registerResponse.status === 200) {
         alert("회원 가입 완료");
-        return navigate(0);
+        return navigate(`/${pollId}`);
       }
 
       alert("로그인 실패");
+      return navigate(`/${pollId}`);
     }
 
     try {
