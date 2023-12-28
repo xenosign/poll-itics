@@ -1,4 +1,4 @@
-const changeDateFormat = (date: Date) => {
+const changeDateFormat = (date: Date): string => {
   return (
     date.getFullYear() +
     "-" +
@@ -15,4 +15,12 @@ const changeDateFormat = (date: Date) => {
   );
 };
 
-export { changeDateFormat };
+const handleRefresh = (): void => {
+  window.location.reload();
+};
+
+const handleGoToMain = (): void => {
+  window.location.replace("/");
+};
+
+export { changeDateFormat, handleRefresh, handleGoToMain };

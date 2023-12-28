@@ -3,6 +3,7 @@ import axios from "../lib/axios";
 import Poll from "../components/Poll";
 import styles from "./Landing.module.css";
 import { Link, useNavigate } from "react-router-dom";
+import { handleRefresh } from "../lib/utils";
 
 export default function Landing() {
   const KAKAO_CLIENT_ID: string = "2be90ab71a1f36d735f12cd91b53a982";
@@ -30,10 +31,6 @@ export default function Landing() {
   useEffect(() => {
     getPollsList();
   }, []);
-
-  const handleRefresh = () => {
-    window.location.reload();
-  };
 
   if (err)
     return (

@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/modules/user";
+import { handleGoToMain } from "../lib/utils";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,15 +26,23 @@ const Header: React.FC = () => {
 
   return (
     <div className={styles.header}>
-      <div>
+      <div className={styles.logo} onClick={handleGoToMain}>
         <h1>Poll-itics</h1>
       </div>
       <div>
         {userInfo.isLogin ? (
-          <p onClick={handleLogout}>카카오 로그아웃</p>
+          <div onClick={handleLogout} className={styles.buttonBox}>
+            <img src="/kakao.png" alt="카카오" className={styles.kakao} />
+            <span>logout</span>
+          </div>
         ) : (
-          <Link onClick={handleSaveUrl} to={KAKAO_AUTH_URL}>
-            카카오 로그인
+          <Link
+            onClick={handleSaveUrl}
+            to={KAKAO_AUTH_URL}
+            className={styles.buttonBox}
+          >
+            <img src="/kakao.png" alt="카카오" className={styles.kakao} />
+            <span>login</span>
           </Link>
         )}
       </div>

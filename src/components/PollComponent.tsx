@@ -94,6 +94,7 @@ const PollComponent: React.FC = () => {
 
       setVoteWhere(where);
     } catch (err: any) {
+      console.log(err);
       alert(err.response?.data);
     }
   };

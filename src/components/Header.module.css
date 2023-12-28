@@ -5,14 +5,27 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 5vw;
-  
 }
 
-.header h1 {
-  font-size: 1.7em;
+.header .logo {
+  color: #222;
+  cursor: pointer;
+}
+
+.header .buttonBox {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  cursor: pointer;
+  color: #494949;
+  font-size: 1.2em;
 }
 
 .header p {
   cursor: pointer;
   color: #494949;
+}
+
+.header .kakao {
+  height: 2em;
 }
