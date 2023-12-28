@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/modules/user";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userInfo = useSelector((state: any) => state.user);
 
@@ -13,6 +14,11 @@ const Header: React.FC = () => {
     "http://localhost:3000/oauth/callback/kakao";
   const KAKAO_AUTH_URL: string = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate(0);
+  };
+
   return (
     <div className={styles.header}>
       <div>
@@ -20,7 +26,7 @@ const Header: React.FC = () => {
       </div>
       <div>
         {userInfo.isLogin ? (
-          <p onClick={() => dispatch(logout())}>카카오 로그아웃</p>
+          <p onClick={handleLogout}>카카오 로그아웃</p>
         ) : (
           <Link to={KAKAO_AUTH_URL}>카카오 로그인</Link>
         )}

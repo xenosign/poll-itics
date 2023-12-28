@@ -1,12 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./PollComponent.module.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "../lib/axios";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
 
 const PollComponent: React.FC = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
@@ -29,9 +30,11 @@ const PollComponent: React.FC = () => {
   let leftPercentageStr = leftPercentageNum.toFixed(1) + "%";
   let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
 
+  const userInfo = useSelector((state: any) => state.user);
+
   const handleVote = async (direction: string) => {
     const res: any = await axios.post(`/poll/${id}/${direction}`, {
-      userId: 2,
+      userId: userInfo.id,
     });
 
     if (res.status !== 200)
@@ -39,6 +42,8 @@ const PollComponent: React.FC = () => {
 
     setRender((cur) => !cur);
   };
+
+  const handleRefresh = useCallback(() => navigate(0), []);
 
   const getPollInfo = async () => {
     const res = await axios.get(`/poll/${id}`);
@@ -59,8 +64,6 @@ const PollComponent: React.FC = () => {
     rightPercentageNum = (right / total) * 100;
   };
 
-  const userInfo = useSelector((state: any) => state.user);
-
   const changeDateFormat = (date: Date) => {
     return (
       date.getFullYear() +
@@ -73,7 +76,7 @@ const PollComponent: React.FC = () => {
       ", " +
       (date.getHours() < 9 ? "0" + date.getHours() : date.getHours()) +
       ":" +
-      date.getMinutes() +
+      (date.getMinutes() < 9 ? "0" + date.getMinutes() : date.getMinutes()) +
       " 이후"
     );
   };
@@ -92,14 +95,17 @@ const PollComponent: React.FC = () => {
     const where = tmpArr[0];
     const votedTime = tmpArr[1];
     const limitedTime = new Date(votedTime);
-    limitedTime.setDate(limitedTime.getDate() + 1);
     const now = new Date();
 
-    setVoteWhere(where);
+    limitedTime.setSeconds(0);
+    limitedTime.setMinutes(limitedTime.getMinutes() + 1);
+    // limitedTime.setDate(limitedTime.getDate() + 1);
 
     if (limitedTime > now) {
       setNotYet(changeDateFormat(limitedTime));
     }
+
+    setVoteWhere(where);
   };
 
   useEffect(() => {
@@ -133,19 +139,30 @@ const PollComponent: React.FC = () => {
   return (
     <div className={styles.wrap}>
       <p className={styles.subject}>{subject}</p>
+
       {
         <p className={styles.voteSubject}>
-          {voteWhere === "" ? "투표 해주세요 🤩" : "투표 완료 😎"}
+          {!userInfo.isLogin
+            ? "로그인을 하셔야만 투표가 가능합니다 😅"
+            : voteWhere === ""
+            ? "투표 해주세요 🤩"
+            : "투표 완료 😎"}
         </p>
       }
       {
         <p className={styles.timeSubject}>
-          {notYet ? `(투표 가능 시간 : ${notYet})` : "(투표 가능)"}
+          {!userInfo.isLogin
+            ? ""
+            : voteWhere === "" || voteWhere === undefined
+            ? "(투표 가능)"
+            : notYet
+            ? `(변경 가능 시간 : ${notYet}, 새로고침 필요)`
+            : "(투표 변경 가능)"}
         </p>
       }
       {
         <p className={styles.subSubject}>
-          투표 및 수정은 하루에 한번만 가능합니다
+          {!userInfo.isLogin ? "" : "투표 및 수정은 하루에 한번만 가능합니다"}
         </p>
       }
       <div className={styles.box}>
@@ -164,7 +181,13 @@ const PollComponent: React.FC = () => {
         </div>
       </div>
       <div className={styles.buttons}>
-        <div className={classNames(notYet && styles.disabled)}>
+        <div
+          className={classNames(
+            voteWhere === "L" && styles.disabled,
+            notYet && styles.disabled,
+            !userInfo.isLogin && styles.disabled
+          )}
+        >
           <button
             className={classNames(
               styles.leftButton,
@@ -176,7 +199,13 @@ const PollComponent: React.FC = () => {
             <h1 className={styles.leftThumb}>👍</h1>
           </button>
         </div>
-        <div className={classNames(notYet && styles.disabled)}>
+        <div
+          className={classNames(
+            voteWhere === "R" && styles.disabled,
+            notYet && styles.disabled,
+            !userInfo.isLogin && styles.disabled
+          )}
+        >
           <button
             className={classNames(
               styles.rightButton,
@@ -189,9 +218,14 @@ const PollComponent: React.FC = () => {
           </button>
         </div>
       </div>
-      <Link to="/">
-        <button className={styles.homeButton}>목록으로</button>
-      </Link>
+      <div className={styles.funcButtonBox}>
+        <button className={styles.refreshButton} onClick={handleRefresh}>
+          새로고침
+        </button>
+        <Link to="/">
+          <button className={styles.homeButton}>목록으로</button>
+        </Link>
+      </div>
     </div>
   );
 };
