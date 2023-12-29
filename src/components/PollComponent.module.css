@@ -29,6 +29,12 @@
   margin-bottom: -1em;
 }
 
+.leftRightSubject {
+  font-weight: 400;
+  text-shadow: none;
+  margin-bottom: 0.5em;
+}
+
 .box {
   width: 70vw;
   height: 10vh;

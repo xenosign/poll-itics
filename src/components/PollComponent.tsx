@@ -16,6 +16,8 @@ const PollComponent: React.FC = () => {
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
   const [subject, setSubject] = useState<string>("");
+  const [leftSubject, setLeftSubject] = useState<string>("");
+  const [rightSubject, setRightSubject] = useState<string>("");
   const [notYet, setNotYet] = useState<string>("");
   const [voteWhere, setVoteWhere] = useState<string>("");
   const [render, setRender] = useState<boolean>(true);
@@ -59,6 +61,8 @@ const PollComponent: React.FC = () => {
       setLeft(pollInfo.left);
       setRight(pollInfo.right);
       setSubject(pollInfo.subject);
+      setLeftSubject(pollInfo.leftSubject);
+      setRightSubject(pollInfo.rightSubject);
     } catch (err: any) {
       alert(err.response?.data);
     }
@@ -130,7 +134,6 @@ const PollComponent: React.FC = () => {
   return (
     <div className={styles.wrap}>
       <p className={styles.subject}>{subject}</p>
-
       {
         <p className={styles.voteSubject}>
           {!userInfo.isLogin
@@ -188,6 +191,7 @@ const PollComponent: React.FC = () => {
             ref={leftButtonRef}
           >
             <h1 className={styles.leftThumb}>👍</h1>
+            <h3 className={styles.leftRightSubject}>{leftSubject}</h3>
           </button>
         </div>
         <div
@@ -206,6 +210,7 @@ const PollComponent: React.FC = () => {
             ref={rightButtonRef}
           >
             <h1 className={styles.rightThumb}>👍</h1>
+            <h3 className={styles.leftRightSubject}>{rightSubject}</h3>
           </button>
         </div>
       </div>
