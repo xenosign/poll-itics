@@ -12,7 +12,7 @@ const Header: React.FC = () => {
 
   const KAKAO_CLIENT_ID: string = "2be90ab71a1f36d735f12cd91b53a982";
   const KAKAO_REDIRECT_URI: string =
-    "http://54.180.150.139/oauth/callback/kakao";
+    "http://54.180.150.139:3000/oauth/callback/kakao";
   const KAKAO_AUTH_URL: string = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
   const handleLogout = () => {
