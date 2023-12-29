@@ -21,6 +21,9 @@ const KakaoRedirectHandler = () => {
       "http://54.180.150.139:3000/oauth/callback/kakao";
 
     async function loginFetch() {
+      console.log(
+        `https://kauth.kakao.com/oauth/token?grant_type=${GRANT_TYPE}&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${CODE}`
+      );
       // 토큰 발행
       const tokenResponse = await fetch(
         `https://kauth.kakao.com/oauth/token?grant_type=${GRANT_TYPE}&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${CODE}`,
