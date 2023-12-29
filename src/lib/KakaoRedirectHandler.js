@@ -18,7 +18,7 @@ const KakaoRedirectHandler = () => {
     // REST API 키를 입력 해야 합니다!
     const KAKAO_CLIENT_ID = "2be90ab71a1f36d735f12cd91b53a982";
     const KAKAO_REDIRECT_URI =
-      "http://http://54.180.150.139:3000/oauth/callback/kakao";
+      "http://54.180.150.139:3000/oauth/callback/kakao";
 
     async function loginFetch() {
       // 토큰 발행
