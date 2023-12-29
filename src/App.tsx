@@ -4,10 +4,12 @@ import PollComponent from "./components/PollComponent";
 import Main from "./pages/Main";
 import Landing from "./pages/Landing";
 import KakaoRedirectHandler from "./lib/KakaoRedirectHandler";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Main />}>
           <Route path="/" element={<Landing />} />

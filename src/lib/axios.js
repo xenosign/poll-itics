@@ -1,7 +1,8 @@
 import axios from "axios";
+import { SERVER_IP } from "./ip";
 
 const instance = axios.create({
-  baseURL: "http://54.180.105.73:3001/",
+  baseURL: `${SERVER_IP}:3001/`,
 });
 
 export default instance;

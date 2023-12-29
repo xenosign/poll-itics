@@ -137,7 +137,7 @@ const PollComponent: React.FC = () => {
       {
         <p className={styles.voteSubject}>
           {!userInfo.isLogin
-            ? "로그인 시 투표가 가능합니다 😅"
+            ? "로그인 후 투표가 가능합니다 😅"
             : voteWhere === ""
             ? "투표 해주세요 🤩"
             : "투표 완료 😎"}

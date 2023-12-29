@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "../lib/axios";
 import { useDispatch } from "react-redux";
 import { login } from "../store/modules/user";
+import { SERVER_IP } from "./ip";
 
 const KakaoRedirectHandler = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const KakaoRedirectHandler = () => {
     const GRANT_TYPE = "authorization_code";
     // REST API 키를 입력 해야 합니다!
     const KAKAO_CLIENT_ID = "2be90ab71a1f36d735f12cd91b53a982";
-    const KAKAO_REDIRECT_URI = "http://54.180.105.73:3000/oauth/callback/kakao";
+    const KAKAO_REDIRECT_URI = `${SERVER_IP}:3000/oauth/callback/kakao`;
 
     async function loginFetch() {
       console.log(
