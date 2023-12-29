@@ -33,7 +33,7 @@ const Header: React.FC = () => {
         {userInfo.isLogin ? (
           <div onClick={handleLogout} className={styles.buttonBox}>
             <img src="/kakao.png" alt="카카오" className={styles.kakao} />
-            <span>logout</span>
+            <span className={styles.log}>logout</span>
           </div>
         ) : (
           <Link
@@ -42,7 +42,7 @@ const Header: React.FC = () => {
             className={styles.buttonBox}
           >
             <img src="/kakao.png" alt="카카오" className={styles.kakao} />
-            <span>login</span>
+            <span className={styles.log}>login</span>
           </Link>
         )}
       </div>

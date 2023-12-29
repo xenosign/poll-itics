@@ -36,3 +36,9 @@
     transform: translateY(0.25em);
   }
 }
+
+@media (max-width: 1000px) {
+  .poll {
+    width: 80vw;
+  }
+}

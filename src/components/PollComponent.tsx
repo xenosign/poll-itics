@@ -137,7 +137,7 @@ const PollComponent: React.FC = () => {
       {
         <p className={styles.voteSubject}>
           {!userInfo.isLogin
-            ? "로그인을 하셔야만 투표가 가능합니다 😅"
+            ? "로그인 시 투표가 가능합니다 😅"
             : voteWhere === ""
             ? "투표 해주세요 🤩"
             : "투표 완료 😎"}
@@ -150,13 +150,13 @@ const PollComponent: React.FC = () => {
             : voteWhere === "" || voteWhere === undefined
             ? "(투표 가능)"
             : notYet
-            ? `(변경 가능 시간 : ${notYet} / 변경 시, 새로고침을 하면 버튼이 활성화 됩니다)`
+            ? `(변경 가능 시간 : ${notYet})`
             : "(투표 변경 가능)"}
         </p>
       }
       {
         <p className={styles.subSubject}>
-          {!userInfo.isLogin ? "" : "투표 및 수정은 하루에 한번만 가능합니다"}
+          {!userInfo.isLogin ? "" : "투표는 하루에 한번만 가능합니다"}
         </p>
       }
       <div className={styles.box}>

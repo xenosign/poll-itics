@@ -9,6 +9,7 @@
 
 .header .logo {
   color: #222;
+  font-size: 0.8em;
   cursor: pointer;
 }
 
@@ -27,5 +28,9 @@
 }
 
 .header .kakao {
-  height: 2em;
+  height: 1.5em;
+}
+
+.header .log {
+  font-size: 0.9em;
 }
