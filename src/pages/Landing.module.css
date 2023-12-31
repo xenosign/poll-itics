@@ -2,11 +2,12 @@
   font-size: 3em;
   color: #333;
   font-weight: 400;
-  margin: 0.4em 0;
+  margin: 0.4em 0;  
 }
 
 .listBox {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 3em;
 }

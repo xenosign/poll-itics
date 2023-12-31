@@ -10,9 +10,6 @@ const PollComponent: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const LIMIT_MINUTES = 5;
-  const LIMIT_DAYS = 1;
-
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
   const [subject, setSubject] = useState<string>("");

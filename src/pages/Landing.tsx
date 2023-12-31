@@ -4,6 +4,7 @@ import Poll from "../components/Poll";
 import styles from "./Landing.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { handleRefresh } from "../lib/utils";
+import Loading from "../components/Loading";
 
 export default function Landing() {
   const KAKAO_CLIENT_ID: string = "2be90ab71a1f36d735f12cd91b53a982";
@@ -13,7 +14,6 @@ export default function Landing() {
 
   const [list, setList] = useState<any>([]);
   const [err, setErr] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   const getPollsList = async () => {
     try {
@@ -48,6 +48,7 @@ export default function Landing() {
   return (
     <div className={styles.listBox}>
       <p className={styles.subject}>투표 목록</p>
+      {list.length === 0 && <Loading />}
       {list?.map((poll: any) => {
         return <Poll key={poll.id} id={poll.id} subject={poll.subject} />;
       })}
