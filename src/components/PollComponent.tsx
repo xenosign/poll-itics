@@ -5,6 +5,7 @@ import axios from "../lib/axios";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
 import { changeDateFormat } from "../lib/utils";
+import Loading from "./Loading";
 
 const PollComponent: React.FC = () => {
   const { id } = useParams();
@@ -130,6 +131,7 @@ const PollComponent: React.FC = () => {
 
   return (
     <div className={styles.wrap}>
+      {subject === "" && <Loading />}
       <p className={styles.subject}>{subject}</p>
       {
         <p className={styles.voteSubject}>
