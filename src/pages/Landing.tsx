@@ -5,6 +5,7 @@ import styles from "./Landing.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { handleRefresh } from "../lib/utils";
 import Loading from "../components/Loading";
+import ServerError from "../components/ServerError";
 
 export default function Landing() {
   const KAKAO_CLIENT_ID: string = "2be90ab71a1f36d735f12cd91b53a982";
@@ -32,18 +33,7 @@ export default function Landing() {
     getPollsList();
   }, []);
 
-  if (err)
-    return (
-      <>
-        <h1>서버 통신 이상</h1>
-        <br />
-        <h2>
-          <Link onClick={handleRefresh} to="/">
-            재접속 하기
-          </Link>
-        </h2>
-      </>
-    );
+  if (err) return <ServerError />;
 
   return (
     <div className={styles.listBox}>

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import classNames from "classnames";
 import { changeDateFormat } from "../lib/utils";
 import Loading from "./Loading";
+import ServerError from "./ServerError";
 
 const PollComponent: React.FC = () => {
   const { id } = useParams();
@@ -64,6 +65,7 @@ const PollComponent: React.FC = () => {
       setSubject(pollInfo.subject);
       setLeftSubject(pollInfo.leftSubject);
       setRightSubject(pollInfo.rightSubject);
+      setLoading(false);
     } catch (err: any) {
       if (err.message === "Network Error") {
         alert("서버 통신 이상");
@@ -113,7 +115,7 @@ const PollComponent: React.FC = () => {
   useEffect(() => {
     getPollInfo();
     if (serverErr) return;
-    if (userInfo.isLogin) getVoteInfo(userInfo.id);
+    if (userInfo.isLogin && !loading) getVoteInfo(userInfo.id);
   }, [render]);
 
   useEffect(() => {
@@ -141,18 +143,7 @@ const PollComponent: React.FC = () => {
 
   if (loading) return <Loading />;
 
-  if (serverErr)
-    return (
-      <>
-        <h1>서버 통신 이상</h1>
-        <br />
-        <h2>
-          <p style={{ cursor: "pointer" }} onClick={handleRefresh}>
-            재접속 하기
-          </p>
-        </h2>
-      </>
-    );
+  if (serverErr) return <ServerError />;
 
   return (
     <div className={styles.wrap}>

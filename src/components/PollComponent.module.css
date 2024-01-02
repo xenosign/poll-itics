@@ -264,7 +264,7 @@
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 767px) {
   .subject {
     font-size: 2.2em;
   }
@@ -275,5 +275,9 @@
 
   .voteSubject {
     font-size: 1.5em;
+  }
+
+  .box .textBox {
+    font-size: 1.3em;
   }
 }
