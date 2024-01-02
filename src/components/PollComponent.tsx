@@ -19,6 +19,8 @@ const PollComponent: React.FC = () => {
   const [notYet, setNotYet] = useState<string>("");
   const [voteWhere, setVoteWhere] = useState<string>("");
   const [render, setRender] = useState<boolean>(true);
+  const [serverErr, setServerErr] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const leftDivRef = useRef<HTMLDivElement>(null);
   const rightDivRef = useRef<HTMLDivElement>(null);
@@ -44,6 +46,7 @@ const PollComponent: React.FC = () => {
 
       setRender((cur) => !cur);
     } catch (err: any) {
+      if (err.resonse?.message === "Network Error") alert("서버 통신 이상");
       alert(err.response?.data);
     }
   };
@@ -62,7 +65,13 @@ const PollComponent: React.FC = () => {
       setLeftSubject(pollInfo.leftSubject);
       setRightSubject(pollInfo.rightSubject);
     } catch (err: any) {
-      alert(err.response?.data);
+      if (err.message === "Network Error") {
+        alert("서버 통신 이상");
+        setServerErr(true);
+        setLoading(false);
+      } else {
+        alert(err.response?.data);
+      }
     }
   };
 
@@ -96,13 +105,14 @@ const PollComponent: React.FC = () => {
 
       setVoteWhere(where);
     } catch (err: any) {
-      console.log(err);
+      if (serverErr) return;
       alert(err.response?.data);
     }
   };
 
   useEffect(() => {
     getPollInfo();
+    if (serverErr) return;
     if (userInfo.isLogin) getVoteInfo(userInfo.id);
   }, [render]);
 
@@ -129,9 +139,23 @@ const PollComponent: React.FC = () => {
     }
   }, [left, right]);
 
+  if (loading) return <Loading />;
+
+  if (serverErr)
+    return (
+      <>
+        <h1>서버 통신 이상</h1>
+        <br />
+        <h2>
+          <p style={{ cursor: "pointer" }} onClick={handleRefresh}>
+            재접속 하기
+          </p>
+        </h2>
+      </>
+    );
+
   return (
     <div className={styles.wrap}>
-      {subject === "" && <Loading />}
       <p className={styles.subject}>{subject}</p>
       {
         <p className={styles.voteSubject}>
