@@ -116,7 +116,7 @@ const PollComponent: React.FC = () => {
     getPollInfo();
     if (serverErr) return;
     if (userInfo.isLogin && !loading) getVoteInfo(userInfo.id);
-  }, [render]);
+  }, [render, loading]);
 
   useEffect(() => {
     getPercentage();
