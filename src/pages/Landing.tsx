@@ -2,17 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "../lib/axios";
 import Poll from "../components/Poll";
 import styles from "./Landing.module.css";
-import { Link, useNavigate } from "react-router-dom";
-import { handleRefresh } from "../lib/utils";
 import Loading from "../components/Loading";
 import ServerError from "../components/ServerError";
 
 export default function Landing() {
-  const KAKAO_CLIENT_ID: string = "2be90ab71a1f36d735f12cd91b53a982";
-  const KAKAO_REDIRECT_URI: string =
-    "http://localhost:3000/oauth/callback/kakao";
-  const KAKAO_AUTH_URL: string = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
-
   const [list, setList] = useState<any>([]);
   const [err, setErr] = useState<boolean>(false);
 

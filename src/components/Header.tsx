@@ -29,9 +29,13 @@ const Header: React.FC = () => {
       <div className={styles.logo} onClick={handleGoToMain}>
         <h1>Poll-itics</h1>
       </div>
-      <div>
+      <div className={styles.buttonBox}>
+        <Link to="/register" className={styles.registerBox}>
+          <span className="material-symbols-outlined">app_registration</span>
+          <span className={styles.text}>등록</span>
+        </Link>
         {userInfo.isLogin ? (
-          <div onClick={handleLogout} className={styles.buttonBox}>
+          <div onClick={handleLogout} className={styles.loginBox}>
             <img src="/kakao.png" alt="카카오" className={styles.kakao} />
             <span className={styles.log}>logout</span>
           </div>
@@ -39,7 +43,7 @@ const Header: React.FC = () => {
           <Link
             onClick={handleSaveUrl}
             to={KAKAO_AUTH_URL}
-            className={styles.buttonBox}
+            className={styles.loginBox}
           >
             <img src="/kakao.png" alt="카카오" className={styles.kakao} />
             <span className={styles.log}>login</span>

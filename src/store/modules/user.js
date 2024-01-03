@@ -1,6 +1,5 @@
-const LOGIN = 'mbti/LOGIN';
-const LOGOUT = 'mbti/LOGOUT';
-
+const LOGIN = "mbti/LOGIN";
+const LOGOUT = "mbti/LOGOUT";
 
 export function login(payload) {
   return {
@@ -16,16 +15,15 @@ export function logout(payload) {
   };
 }
 
-
 const initState = {
-  id: '',
+  code: "",
   isLogin: false,
 };
 
-const localStorageLogin = JSON.parse(window.localStorage.getItem('login'));
+const localStorageLogin = JSON.parse(window.localStorage.getItem("login"));
 
 if (localStorageLogin?.isLogin) {
-  initState.id = localStorageLogin.id;
+  initState.code = localStorageLogin.code;
   initState.isLogin = localStorageLogin.isLogin;
 }
 
@@ -34,26 +32,26 @@ export default function user(state = initState, action) {
   switch (action.type) {
     case LOGIN:
       const storageObj = {
-        id: action.payload.id,
+        code: action.payload.code,
         isLogin: true,
-        expire: Date.now + 24 * 60 * 60 * 1000,
-      }
+        expire: Date.now + 6 * 60 * 60 * 1000,
+      };
       const storageObjStr = JSON.stringify(storageObj);
-      window.localStorage.setItem('login', storageObjStr);
+      window.localStorage.setItem("login", storageObjStr);
 
       return {
         ...state,
         isLogin: true,
-        id: action.payload.id,
+        code: action.payload.code,
       };
     case LOGOUT:
-      window.localStorage.removeItem('login');
+      window.localStorage.removeItem("login");
       alert("로그아웃 완료");
 
       return {
         ...state,
         isLogin: false,
-        id: '',
+        code: "",
       };
     default:
       return state;

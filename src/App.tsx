@@ -5,6 +5,7 @@ import Main from "./pages/Main";
 import Landing from "./pages/Landing";
 import KakaoRedirectHandler from "./lib/KakaoRedirectHandler";
 import ScrollToTop from "./components/ScrollToTop";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}>
           <Route path="/" element={<Landing />} />
-          <Route path=":id" element={<PollComponent />} />
+          <Route path="/poll/:id" element={<PollComponent />} />
+          <Route path="/register" element={<Register />} />
         </Route>
         <Route
           path="/oauth/callback/kakao"

@@ -42,12 +42,13 @@ const PollComponent: React.FC = () => {
   const handleVote = async (direction: string) => {
     try {
       const res: any = await axios.post(`/poll/${id}/${direction}`, {
-        userId: userInfo.id,
+        code: userInfo.code,
       });
 
       setRender((cur) => !cur);
     } catch (err: any) {
-      if (err.resonse?.message === "Network Error") alert("서버 통신 이상");
+      if (err.resonse?.message === "Network Error")
+        return alert("서버 통신 이상");
       alert(err.response?.data);
     }
   };
@@ -84,10 +85,10 @@ const PollComponent: React.FC = () => {
     rightPercentageNum = (right / total) * 100;
   };
 
-  const getVoteInfo = async (userId: string) => {
+  const getVoteInfo = async (code: string) => {
     try {
       const res: any = await axios.post(`/user/get/`, {
-        userId: userId,
+        code: code,
       });
 
       const votedList = res.data.histories;
@@ -115,7 +116,7 @@ const PollComponent: React.FC = () => {
   useEffect(() => {
     getPollInfo();
     if (serverErr) return;
-    if (userInfo.isLogin && !loading) getVoteInfo(userInfo.id);
+    if (userInfo.isLogin && !loading) getVoteInfo(userInfo.code);
   }, [render, loading]);
 
   useEffect(() => {

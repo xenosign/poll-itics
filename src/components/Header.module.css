@@ -15,6 +15,32 @@
 
 .header .buttonBox {
   display: flex;
+  gap: 40px;
+  font-size: 1.2em;
+  align-items: center;
+}
+
+.header .buttonBox .registerBox {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: #494949;
+  cursor: pointer;
+  padding-top: 4px;
+}
+
+.header .buttonBox .registerBox span {
+  color: #000;
+  font-size: 2em;
+}
+
+.header .buttonBox .registerBox .text {
+  font-size: 1.2em;
+  color: #494949;
+}
+
+.header .buttonBox .loginBox {
+  display: flex;
   gap: 0.5em;
   align-items: center;
   cursor: pointer;
@@ -31,11 +57,23 @@
   height: 1.5em;
 }
 
+.header .register {
+  height: 1.5em;
+}
+
 @media (max-width: 1000px) {
   .header .logo {
     font-size: 0.8em;
   }
   .header .log {
-    font-size: 0.9em;
+    font-size: 0.8em;
+  }
+
+  .header .buttonBox {
+    gap: 20px;
+  }
+
+  .header .registerBox {
+    font-size: 0.8em;
   }
 }
