@@ -120,6 +120,8 @@ const PollComponent: React.FC = () => {
   }, [render, loading]);
 
   useEffect(() => {
+    if (loading || serverErr) return;
+
     getPercentage();
 
     if (
