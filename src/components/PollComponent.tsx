@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import styles from "./PollComponent.module.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import axios from "../lib/axios";
-import { useSelector } from "react-redux";
-import classNames from "classnames";
-import { changeDateFormat } from "../lib/utils";
-import Loading from "./Loading";
-import ServerError from "./ServerError";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import styles from './PollComponent.module.css';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import axios from '../lib/axios';
+import { useSelector } from 'react-redux';
+import classNames from 'classnames';
+import { changeDateFormat } from '../lib/utils';
+import Loading from './Loading';
+import ServerError from './ServerError';
 
 const PollComponent: React.FC = () => {
   const { id } = useParams();
@@ -14,11 +14,11 @@ const PollComponent: React.FC = () => {
 
   const [left, setLeft] = useState<number>(0);
   const [right, setRight] = useState<number>(0);
-  const [subject, setSubject] = useState<string>("");
-  const [leftSubject, setLeftSubject] = useState<string>("");
-  const [rightSubject, setRightSubject] = useState<string>("");
-  const [notYet, setNotYet] = useState<string>("");
-  const [voteWhere, setVoteWhere] = useState<string>("");
+  const [subject, setSubject] = useState<string>('');
+  const [leftSubject, setLeftSubject] = useState<string>('');
+  const [rightSubject, setRightSubject] = useState<string>('');
+  const [notYet, setNotYet] = useState<string>('');
+  const [voteWhere, setVoteWhere] = useState<string>('');
   const [render, setRender] = useState<boolean>(true);
   const [serverErr, setServerErr] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -34,8 +34,8 @@ const PollComponent: React.FC = () => {
   let total = left + right;
   let leftPercentageNum = (left / total) * 100;
   let rightPercentageNum = (right / total) * 100;
-  let leftPercentageStr = leftPercentageNum.toFixed(1) + "%";
-  let rightPercentageStr = rightPercentageNum.toFixed(1) + "%";
+  let leftPercentageStr = leftPercentageNum.toFixed(1) + '%';
+  let rightPercentageStr = rightPercentageNum.toFixed(1) + '%';
 
   const userInfo = useSelector((state: any) => state.user);
 
@@ -47,8 +47,8 @@ const PollComponent: React.FC = () => {
 
       setRender((cur) => !cur);
     } catch (err: any) {
-      if (err.resonse?.message === "Network Error")
-        return alert("서버 통신 이상");
+      if (err.resonse?.message === 'Network Error')
+        return alert('서버 통신 이상');
       alert(err.response?.data);
     }
   };
@@ -68,8 +68,8 @@ const PollComponent: React.FC = () => {
       setRightSubject(pollInfo.rightSubject);
       setLoading(false);
     } catch (err: any) {
-      if (err.message === "Network Error") {
-        alert("서버 통신 이상");
+      if (err.message === 'Network Error') {
+        alert('서버 통신 이상');
         setServerErr(true);
         setLoading(false);
       } else {
@@ -94,9 +94,9 @@ const PollComponent: React.FC = () => {
       const votedList = res.data.histories;
       const voteInfo = votedList[`${id}`];
 
-      if (voteInfo === undefined || voteInfo === "") return;
+      if (voteInfo === undefined || voteInfo === '') return;
 
-      const tmpArr = voteInfo.split("/");
+      const tmpArr = voteInfo.split('/');
       const where = tmpArr[0];
       const limitTimeStr = tmpArr[1];
       const limitTime = new Date(limitTimeStr);
@@ -135,12 +135,12 @@ const PollComponent: React.FC = () => {
       leftDivRef.current.style.width = `${leftPercentageNum}%`;
       rightDivRef.current.style.width = `${rightPercentageNum}%`;
 
-      centerDivRef.current.style.width = "0%";
-      centerDivRef.current.innerText = "";
+      centerDivRef.current.style.width = '0%';
+      centerDivRef.current.innerText = '';
 
-      left !== 0 && (leftDivTextBoxRef.current.style.opacity = "100%");
+      left !== 0 && (leftDivTextBoxRef.current.style.opacity = '100%');
 
-      right !== 0 && (rightDivTextBoxRef.current.style.opacity = "100%");
+      right !== 0 && (rightDivTextBoxRef.current.style.opacity = '100%');
     }
   }, [left, right]);
 
@@ -154,26 +154,26 @@ const PollComponent: React.FC = () => {
       {
         <p className={styles.voteSubject}>
           {!userInfo.isLogin
-            ? "로그인 후 투표가 가능합니다 😅"
-            : voteWhere === ""
-            ? "투표 해주세요 🤩"
-            : "투표 완료 😎"}
+            ? '로그인 후 투표가 가능합니다 😅'
+            : voteWhere === ''
+            ? '투표 해주세요 🤩'
+            : '투표 완료 😎'}
         </p>
       }
       {
         <p className={styles.timeSubject}>
           {!userInfo.isLogin
-            ? ""
-            : voteWhere === "" || voteWhere === undefined
-            ? "(투표 가능)"
+            ? ''
+            : voteWhere === '' || voteWhere === undefined
+            ? '(투표 가능)'
             : notYet
             ? `(변경 가능 시간 : ${notYet})`
-            : "(투표 변경 가능)"}
+            : '(투표 변경 가능)'}
         </p>
       }
       {
         <p className={styles.subSubject}>
-          {!userInfo.isLogin ? "" : "투표는 하루에 한번만 가능합니다"}
+          {!userInfo.isLogin ? '' : '투표는 하루에 한번만 가능합니다'}
         </p>
       }
       <div className={styles.box}>
@@ -194,7 +194,7 @@ const PollComponent: React.FC = () => {
       <div className={styles.buttons}>
         <div
           className={classNames(
-            voteWhere === "L" && styles.disabled,
+            voteWhere === 'L' && styles.disabled,
             notYet && styles.disabled,
             !userInfo.isLogin && styles.disabled
           )}
@@ -202,9 +202,9 @@ const PollComponent: React.FC = () => {
           <button
             className={classNames(
               styles.leftButton,
-              voteWhere === "L" && styles.leftVoted
+              voteWhere === 'L' && styles.leftVoted
             )}
-            onClick={() => handleVote("left")}
+            onClick={() => handleVote('left')}
             ref={leftButtonRef}
           >
             <h1 className={styles.leftThumb}>👍</h1>
@@ -213,7 +213,7 @@ const PollComponent: React.FC = () => {
         </div>
         <div
           className={classNames(
-            voteWhere === "R" && styles.disabled,
+            voteWhere === 'R' && styles.disabled,
             notYet && styles.disabled,
             !userInfo.isLogin && styles.disabled
           )}
@@ -221,9 +221,9 @@ const PollComponent: React.FC = () => {
           <button
             className={classNames(
               styles.rightButton,
-              voteWhere === "R" && styles.rightVoted
+              voteWhere === 'R' && styles.rightVoted
             )}
-            onClick={() => handleVote("right")}
+            onClick={() => handleVote('right')}
             ref={rightButtonRef}
           >
             <h1 className={styles.rightThumb}>👍</h1>
